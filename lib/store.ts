@@ -28,5 +28,5 @@ export const outcome = (r: Receipt): Outcome => {
 };
 export function stats(origin?: "live" | "sample") {
   const rs = getReceipts().filter((r) => !origin || (origin === "live") === (r.origin === "ingest")), sized = rs.filter((r) => r.result.status === "sized");
-  return { total: rs.length, sized: sized.length, refused: rs.length - sized.length, hits: sized.filter((r) => outcome(r) === "hit").length };
+  return { total: rs.length, sized: sized.length, refused: rs.length - sized.length, graded: sized.filter((r) => r.grade?.gradedAt).length, hits: sized.filter((r) => outcome(r) === "hit").length };
 }

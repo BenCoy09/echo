@@ -75,7 +75,7 @@ export function Landing() {
           <span className="label">{hasLive ? "Live receipts" : "Sample data · small n"}</span>
         </div>
         <dl className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {[["Receipts", s.total], ["Sized", s.sized], ["Refused", s.refused], ["Hit rate (sized)", `${s.hits} / ${s.sized}`]].map(([k, v]) => (
+          {[["Receipts", s.total], ["Sized", s.sized], ["Refused", s.refused], ["Hit rate (graded)", s.graded ? `${s.hits} / ${s.graded}` : "Pending"]].map(([k, v]) => (
             <div key={k} className="border-l border-ink-line pl-4">
               <dt className="label">{k}</dt>
               <dd className="mt-2 font-display text-4xl">{v}</dd>
