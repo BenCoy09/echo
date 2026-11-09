@@ -1,0 +1,434 @@
+[
+  {
+    "id": "rcpt_0412_arc",
+    "createdAt": "2026-11-04T09:12:41Z",
+    "engineVersion": "echo-core 0.2.0",
+    "evidence": {
+      "token": "ARC",
+      "windowHours": 6,
+      "voicesObserved": 7,
+      "mentions": [
+        {
+          "handle": "alderline",
+          "platform": "x",
+          "url": "https://x.com/alderline/status/1300",
+          "postedAt": "2026-11-04T05:10:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "kestrelwire",
+          "platform": "x",
+          "url": "https://x.com/kestrelwire/status/1310",
+          "postedAt": "2026-11-04T06:17:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "northbound",
+          "platform": "telegram",
+          "url": "https://x.com/northbound/status/1320",
+          "postedAt": "2026-11-04T07:24:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "ledgerfox",
+          "platform": "x",
+          "url": "https://x.com/ledgerfox/status/1330",
+          "postedAt": "2026-11-04T08:31:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "quietmint",
+          "platform": "x",
+          "url": "https://x.com/quietmint/status/1340",
+          "postedAt": "2026-11-04T05:38:00Z",
+          "stance": "long"
+        }
+      ],
+      "market": [
+        {
+          "key": "volumeChange24h",
+          "path": "ryo://market/ARC/volume?window=24h",
+          "fetchedAt": "2026-11-04T09:12:41Z",
+          "value": 38
+        },
+        {
+          "key": "fundingPct",
+          "path": "ryo://market/ARC/funding",
+          "fetchedAt": "2026-11-04T09:12:41Z",
+          "value": 0.008
+        },
+        {
+          "key": "liquidityUsd",
+          "path": "ryo://market/ARC/liquidity?depth=1pct",
+          "fetchedAt": "2026-11-04T09:12:41Z",
+          "value": 1900000
+        }
+      ]
+    },
+    "result": {
+      "status": "sized",
+      "direction": "long",
+      "sizePct": 0.5,
+      "confidence": 0.71,
+      "aligned": 5,
+      "reasons": []
+    },
+    "evidenceHash": "085d3a441d563c0d26bb71a1aa6cba115eea155a96877a6db93424a4f549c5d3",
+    "grade": {
+      "horizonH": 24,
+      "returnPct": 6.4
+    }
+  },
+  {
+    "id": "rcpt_0411_nova",
+    "createdAt": "2026-11-03T14:02:10Z",
+    "engineVersion": "echo-core 0.2.0",
+    "evidence": {
+      "token": "NOVA",
+      "windowHours": 6,
+      "voicesObserved": 8,
+      "mentions": [
+        {
+          "handle": "alderline",
+          "platform": "x",
+          "url": "https://x.com/alderline/status/1400",
+          "postedAt": "2026-11-03T05:10:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "kestrelwire",
+          "platform": "x",
+          "url": "https://x.com/kestrelwire/status/1410",
+          "postedAt": "2026-11-03T06:17:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "northbound",
+          "platform": "telegram",
+          "url": "https://x.com/northbound/status/1420",
+          "postedAt": "2026-11-03T07:24:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "ledgerfox",
+          "platform": "x",
+          "url": "https://x.com/ledgerfox/status/1430",
+          "postedAt": "2026-11-03T08:31:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "quietmint",
+          "platform": "x",
+          "url": "https://x.com/quietmint/status/1440",
+          "postedAt": "2026-11-03T05:38:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "hexbridge",
+          "platform": "x",
+          "url": "https://x.com/hexbridge/status/1405",
+          "postedAt": "2026-11-03T05:10:00Z",
+          "stance": "short"
+        }
+      ],
+      "market": [
+        {
+          "key": "volumeChange24h",
+          "path": "ryo://market/NOVA/volume?window=24h",
+          "fetchedAt": "2026-11-03T14:02:10Z",
+          "value": -22
+        },
+        {
+          "key": "fundingPct",
+          "path": "ryo://market/NOVA/funding",
+          "fetchedAt": "2026-11-03T14:02:10Z",
+          "value": 0.012
+        },
+        {
+          "key": "liquidityUsd",
+          "path": "ryo://market/NOVA/liquidity?depth=1pct",
+          "fetchedAt": "2026-11-03T14:02:10Z",
+          "value": 3100000
+        }
+      ]
+    },
+    "result": {
+      "status": "refused",
+      "direction": "long",
+      "sizePct": null,
+      "confidence": 0.63,
+      "aligned": 5,
+      "reasons": [
+        "Conflict: voices are long but 24h volume is -22%"
+      ]
+    },
+    "evidenceHash": "3fb2829f841f01e85ce06e13c4fbbc2db8508e5560590f9d1a9c015eb308c5ad",
+    "grade": {
+      "horizonH": 24,
+      "returnPct": -9.8
+    }
+  },
+  {
+    "id": "rcpt_0410_delta",
+    "createdAt": "2026-11-02T08:41:55Z",
+    "engineVersion": "echo-core 0.2.0",
+    "evidence": {
+      "token": "DELTA",
+      "windowHours": 6,
+      "voicesObserved": 6,
+      "mentions": [
+        {
+          "handle": "hexbridge",
+          "platform": "x",
+          "url": "https://x.com/hexbridge/status/1505",
+          "postedAt": "2026-11-02T05:10:00Z",
+          "stance": "short"
+        },
+        {
+          "handle": "tidalcap",
+          "platform": "x",
+          "url": "https://x.com/tidalcap/status/1515",
+          "postedAt": "2026-11-02T06:17:00Z",
+          "stance": "short"
+        },
+        {
+          "handle": "vellum_on",
+          "platform": "telegram",
+          "url": "https://x.com/vellum_on/status/1525",
+          "postedAt": "2026-11-02T07:24:00Z",
+          "stance": "short"
+        },
+        {
+          "handle": "brightcurve",
+          "platform": "x",
+          "url": "https://x.com/brightcurve/status/1535",
+          "postedAt": "2026-11-02T08:31:00Z",
+          "stance": "short"
+        }
+      ],
+      "market": [
+        {
+          "key": "volumeChange24h",
+          "path": "ryo://market/DELTA/volume?window=24h",
+          "fetchedAt": "2026-11-02T08:41:55Z",
+          "value": 12
+        },
+        {
+          "key": "fundingPct",
+          "path": "ryo://market/DELTA/funding",
+          "fetchedAt": "2026-11-02T08:41:55Z",
+          "value": 0.01
+        },
+        {
+          "key": "liquidityUsd",
+          "path": "ryo://market/DELTA/liquidity?depth=1pct",
+          "fetchedAt": "2026-11-02T08:41:55Z",
+          "value": 2400000
+        }
+      ]
+    },
+    "result": {
+      "status": "sized",
+      "direction": "short",
+      "sizePct": 0.47,
+      "confidence": 0.67,
+      "aligned": 4,
+      "reasons": []
+    },
+    "evidenceHash": "6a7ccdbc5c8c80da9da78ee0b13c6190d2b6df606590ac40a401f676b0462cdb",
+    "grade": {
+      "horizonH": 24,
+      "returnPct": -4.1
+    }
+  },
+  {
+    "id": "rcpt_0409_kite",
+    "createdAt": "2026-11-01T19:20:03Z",
+    "engineVersion": "echo-core 0.2.0",
+    "evidence": {
+      "token": "KITE",
+      "windowHours": 6,
+      "voicesObserved": 9,
+      "mentions": [
+        {
+          "handle": "alderline",
+          "platform": "x",
+          "url": "https://x.com/alderline/status/1400",
+          "postedAt": "2026-11-01T05:10:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "kestrelwire",
+          "platform": "x",
+          "url": "https://x.com/kestrelwire/status/1410",
+          "postedAt": "2026-11-01T06:17:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "northbound",
+          "platform": "telegram",
+          "url": "https://x.com/northbound/status/1420",
+          "postedAt": "2026-11-01T07:24:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "ledgerfox",
+          "platform": "x",
+          "url": "https://x.com/ledgerfox/status/1430",
+          "postedAt": "2026-11-01T08:31:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "quietmint",
+          "platform": "x",
+          "url": "https://x.com/quietmint/status/1440",
+          "postedAt": "2026-11-01T05:38:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "hexbridge",
+          "platform": "telegram",
+          "url": "https://x.com/hexbridge/status/1450",
+          "postedAt": "2026-11-01T06:45:00Z",
+          "stance": "long"
+        }
+      ],
+      "market": [
+        {
+          "key": "volumeChange24h",
+          "path": "ryo://market/KITE/volume?window=24h",
+          "fetchedAt": "2026-11-01T19:20:03Z",
+          "value": 61
+        },
+        {
+          "key": "fundingPct",
+          "path": "ryo://market/KITE/funding",
+          "fetchedAt": "2026-11-01T19:20:03Z",
+          "value": 0.02
+        },
+        {
+          "key": "liquidityUsd",
+          "path": "ryo://market/KITE/liquidity?depth=1pct",
+          "fetchedAt": "2026-11-01T19:20:03Z",
+          "value": null
+        }
+      ]
+    },
+    "result": {
+      "status": "refused",
+      "direction": "long",
+      "sizePct": null,
+      "confidence": 0.67,
+      "aligned": 6,
+      "reasons": [
+        "Missing data: ryo://market/KITE/liquidity?depth=1pct"
+      ]
+    },
+    "evidenceHash": "e76864e537961f50bd8b1cf9d3410ed1f681f985ec4439294b5cab8b09db5ee6",
+    "grade": {
+      "horizonH": 24,
+      "returnPct": 3.3
+    }
+  },
+  {
+    "id": "rcpt_0408_prsm",
+    "createdAt": "2026-10-31T11:15:30Z",
+    "engineVersion": "echo-core 0.2.0",
+    "evidence": {
+      "token": "PRSM",
+      "windowHours": 6,
+      "voicesObserved": 10,
+      "mentions": [
+        {
+          "handle": "alderline",
+          "platform": "x",
+          "url": "https://x.com/alderline/status/1400",
+          "postedAt": "2026-10-31T05:10:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "kestrelwire",
+          "platform": "x",
+          "url": "https://x.com/kestrelwire/status/1410",
+          "postedAt": "2026-10-31T06:17:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "northbound",
+          "platform": "telegram",
+          "url": "https://x.com/northbound/status/1420",
+          "postedAt": "2026-10-31T07:24:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "ledgerfox",
+          "platform": "x",
+          "url": "https://x.com/ledgerfox/status/1430",
+          "postedAt": "2026-10-31T08:31:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "quietmint",
+          "platform": "x",
+          "url": "https://x.com/quietmint/status/1440",
+          "postedAt": "2026-10-31T05:38:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "hexbridge",
+          "platform": "telegram",
+          "url": "https://x.com/hexbridge/status/1450",
+          "postedAt": "2026-10-31T06:45:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "tidalcap",
+          "platform": "x",
+          "url": "https://x.com/tidalcap/status/1460",
+          "postedAt": "2026-10-31T07:52:00Z",
+          "stance": "long"
+        },
+        {
+          "handle": "hexbridge",
+          "platform": "x",
+          "url": "https://x.com/hexbridge/status/1405",
+          "postedAt": "2026-10-31T05:10:00Z",
+          "stance": "short"
+        }
+      ],
+      "market": [
+        {
+          "key": "volumeChange24h",
+          "path": "ryo://market/PRSM/volume?window=24h",
+          "fetchedAt": "2026-10-31T11:15:30Z",
+          "value": 20
+        },
+        {
+          "key": "fundingPct",
+          "path": "ryo://market/PRSM/funding",
+          "fetchedAt": "2026-10-31T11:15:30Z",
+          "value": 0.01
+        },
+        {
+          "key": "liquidityUsd",
+          "path": "ryo://market/PRSM/liquidity?depth=1pct",
+          "fetchedAt": "2026-10-31T11:15:30Z",
+          "value": 4100000
+        }
+      ]
+    },
+    "result": {
+      "status": "sized",
+      "direction": "long",
+      "sizePct": 0.49,
+      "confidence": 0.7,
+      "aligned": 7,
+      "reasons": []
+    },
+    "evidenceHash": "7f8e3d29934d640ceaa759615bffb4ae9d6f82a0cd0ca5777dd808909392e4dd",
+    "grade": {
+      "horizonH": 24,
+      "returnPct": -2.3
+    }
+  }
+]
