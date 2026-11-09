@@ -6,4 +6,4 @@ export interface Evidence { token: string; windowHours: number; voicesObserved: 
 export interface Result { status: "sized" | "refused"; direction: Direction | null; sizePct: number | null; confidence: number; aligned: number; reasons: string[] }
 /** Stored beside the receipt, never inside the hashed evidence. */
 export interface Grade { horizonH: number; returnPct: number; entryPrice?: number; exitPrice?: number; correct?: boolean | null; source?: string; gradedAt?: string }
-export interface Receipt { id: string; createdAt: string; engineVersion: string; evidence: Evidence; result: Result; evidenceHash: string; grade?: Grade; origin?: "sample" | "ingest"; marketSource?: "mock" | "ryo" }
+export interface Receipt { id: string; createdAt: string; engineVersion: string; evidence: Evidence; result: Result; evidenceHash: string; grade?: Grade; origin?: "sample" | "ingest"; marketSource?: "mock" | "ryo"; voided?: { reason: string; at: string } }

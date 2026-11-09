@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
-import { getReceipts } from "@/lib/store";
+import { getAllReceipts } from "@/lib/store";
 import { when } from "@/lib/format";
 
 export const metadata = { title: "Signals · Echo" };
 // Receipts change at runtime, so never prerender this page at build time.
 export const dynamic = "force-dynamic";
 export default function Signals() {
-  const rs = getReceipts();
+  const rs = getAllReceipts();
   return (<>
     <SiteHeader />
     <main className="mx-auto max-w-page px-5 py-7">
@@ -21,7 +21,7 @@ export default function Signals() {
               <Link href={`/receipt/${r.id}`} className="grid gap-2 py-5 hover:bg-ink-2 sm:grid-cols-[110px_1fr_auto] sm:items-baseline sm:px-3">
                 <span className="font-display text-2xl">${r.evidence.token}{r.origin === "ingest" && <span className="label ml-2 text-verdigris">live</span>}</span>
                 <span className="text-sm text-bone-dim">{ok ? `${r.result.direction} · ${r.result.sizePct}% risk · convergence ${r.result.confidence}` : r.result.reasons[0]}</span>
-                <span className={`font-mono text-xs ${ok ? "text-verdigris" : "text-rust"}`}>{when(r.createdAt)} · {r.result.status.toUpperCase()}</span>
+                <span className={`font-mono text-xs ${ok ? "text-verdigris" : "text-rust"}`}>{when(r.createdAt)} · {r.result.status.toUpperCase()}{r.voided ? " · VOIDED" : ""}</span>
               </Link>
             </li>);
         })}

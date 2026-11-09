@@ -21,6 +21,13 @@ export async function POST(req: Request) {
   const token = String(b?.token ?? "").toUpperCase().replace(/[^A-Z0-9]/g, "");
   if (!token || !Array.isArray(b?.mentions) || !b.mentions.every(isMention)) return bad("Expected { token, voicesObserved, mentions[] } with valid mentions");
   if (!Number.isInteger(b.voicesObserved) || b.voicesObserved < b.mentions.length) return bad("voicesObserved must be an integer ≥ mentions.length");
+  // Catch data-entry mistakes: the handle must match its link, and an excerpt about another $TICKER is rejected.
+  for (const m of b.mentions as Mention[]) {
+    const hm = m.url.match(/^https?:\/\/(?:www\.)?(?:x|twitter)\.com\/([^/?#]+)\/status/i);
+    if (hm && hm[1].toLowerCase() !== m.handle.replace(/^@/, "").toLowerCase()) return bad(`@${m.handle} does not match its link (@${hm[1]})`);
+    const tags = [...(m.excerpt ?? "").matchAll(/\$([A-Za-z]{2,10})\b/g)].map((x) => x[1].toUpperCase());
+    if (tags.length && !tags.includes(token)) return bad(`@${m.handle}'s excerpt is about $${tags[0]}, not $${token}`);
+  }
   // Every post must fall inside the claimed window (small allowance for clock skew).
   const winMs = (b.windowHours ?? 6) * 3.6e6, nowMs = Date.now();
   const stale = (b.mentions as Mention[]).filter((m) => nowMs - Date.parse(m.postedAt) > winMs || Date.parse(m.postedAt) > nowMs + 5 * 60e3);

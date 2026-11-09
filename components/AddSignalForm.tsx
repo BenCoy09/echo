@@ -27,6 +27,7 @@ export function AddSignalForm() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (rows.some((r) => Number.isNaN(Date.parse(r.postedAt)))) return setOut({ ok: false, error: "Add the time each post was made." });
+    if (!window.confirm(`Seal ${rows.length} posts as $${token}? Receipts cannot be edited, only voided.`)) return;
     setBusy(true); setOut(null);
     try {
       const res = await fetch("/api/collect", {

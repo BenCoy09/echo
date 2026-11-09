@@ -1,4 +1,4 @@
-import { getReceipts, saveReceipts } from "./store";
+import { getAllReceipts, saveReceipts } from "./store";
 import { getSource, type PriceSource } from "./prices";
 import type { Grade, Receipt } from "./types";
 
@@ -19,9 +19,10 @@ export async function gradeReceipt(r: Receipt, src: PriceSource, now = Date.now(
 
 /** Idempotent: grades only receipts without a stamped grade. Safe to call from cron or on page load. */
 export async function runGrading() {
-  const rs = getReceipts(), src = getSource();
+  const rs = getAllReceipts(), src = getSource();
   let graded = 0, changed = false;
   for (const r of rs) {
+    if (r.voided) continue;
     if (r.grade?.gradedAt && r.grade.source === src.name) continue; // already graded by this source
     try { const g = await gradeReceipt(r, src); if (g) { r.grade = g; graded++; changed = true; } }
     catch { if (r.grade) { delete r.grade; changed = true; } } // never keep a grade from a different (e.g. mock) source

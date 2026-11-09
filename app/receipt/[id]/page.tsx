@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { VerifyButton } from "@/components/VerifyButton";
+import { VoidButton } from "@/components/VoidButton";
 import { getReceipt, outcome } from "@/lib/store";
 import { fmt, when } from "@/lib/format";
 
@@ -15,6 +16,7 @@ export default function ReceiptPage({ params }: { params: { id: string } }) {
     <SiteHeader />
     <main className="mx-auto max-w-page px-5 py-7">
       <p className="label">Receipt · {r.id} · sealed {when(r.createdAt)} · {r.origin === "ingest" ? "live" : "sample"}</p>
+      {r.voided && <p className="mt-3 border border-rust px-3 py-2 text-sm text-rust">VOIDED {when(r.voided.at)}: {r.voided.reason}. Excluded from the track record and kept here for transparency.</p>}
       <h1 className="mt-3 font-display text-4xl">${e.token}: {ok ? `${x.direction}, ${x.sizePct}% risk` : "no sized signal"}</h1>
       {!ok && (
         <ul className="mt-5 max-w-xl border-l-2 border-rust pl-4 text-sm">
@@ -55,6 +57,7 @@ export default function ReceiptPage({ params }: { params: { id: string } }) {
       <h2 className="mt-8 font-display text-2xl">Verify</h2>
       <p className="mb-4 mt-2 max-w-xl text-sm text-bone-dim">Re-runs the {r.engineVersion} engine on the stored evidence and compares the output and hash with the sealed receipt.</p>
       <VerifyButton id={r.id} />
+      {r.origin === "ingest" && !r.voided && <VoidButton id={r.id} />}
       <details className="mt-8 border border-ink-line">
         <summary className="label cursor-pointer px-4 py-3">Raw receipt JSON</summary>
         <pre className="overflow-x-auto border-t border-ink-line p-4 font-mono text-xs text-bone-dim">{JSON.stringify(r, null, 2)}</pre>
