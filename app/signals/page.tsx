@@ -4,6 +4,8 @@ import { getReceipts } from "@/lib/store";
 import { when } from "@/lib/format";
 
 export const metadata = { title: "Signals · Echo" };
+// Receipts change at runtime, so never prerender this page at build time.
+export const dynamic = "force-dynamic";
 export default function Signals() {
   const rs = getReceipts();
   return (<>

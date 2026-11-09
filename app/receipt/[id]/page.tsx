@@ -4,6 +4,8 @@ import { VerifyButton } from "@/components/VerifyButton";
 import { getReceipt, outcome } from "@/lib/store";
 import { fmt, when } from "@/lib/format";
 
+// Receipts change at runtime, so never prerender this page at build time.
+export const dynamic = "force-dynamic";
 export default function ReceiptPage({ params }: { params: { id: string } }) {
   const r = getReceipt(params.id);
   if (!r) notFound();
