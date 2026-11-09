@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { seedReceipts } from "./seed";
+import { pushRemote, remoteEnabled } from "./remote";
 import type { Receipt } from "./types";
 
 // Receipts persist as structured JSON. First run seals the sample set into data/receipts.json.
@@ -12,7 +13,9 @@ export function getReceipts(): Receipt[] {
 }
 export function saveReceipts(rs: Receipt[]) {
   fs.mkdirSync(path.dirname(FILE), { recursive: true });
-  fs.writeFileSync(FILE, JSON.stringify(rs, null, 2));
+  const json = JSON.stringify(rs, null, 2);
+  fs.writeFileSync(FILE, json);
+  if (remoteEnabled) void pushRemote(json); // durable copy; fire-and-forget
 }
 export const addReceipt = (r: Receipt) => saveReceipts([r, ...getReceipts()]);
 export const getReceipt = (id: string) => getReceipts().find((r) => r.id === id);

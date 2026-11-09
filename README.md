@@ -55,3 +55,7 @@ Sample receipts now use real tickers (SOL, ETH, LINK, AVAX, ARB) with **syntheti
 
 ## Add signal (free, manual live ingest)
 `/add` is a form over `POST /api/collect`: paste post links, pick long/short and post time, seal. Same engine, hashing and grading as automated ingest. In production set `ECHO_INGEST_KEY` and enter it in the form.
+
+## Persistence on free hosts (Upstash)
+Create a free Redis database at upstash.com, then set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` on the host. On boot (`instrumentation.ts`) receipts are restored from Redis, or Redis is seeded from the committed `data/receipts.json`. Every save (new receipt, new grade) is mirrored back. Once Redis holds data, it is the source of truth; pushing a new `data/receipts.json` will not overwrite it.
+Schedule `POST /api/grade` hourly (e.g. cron-job.org) to grade without anyone visiting /record.
