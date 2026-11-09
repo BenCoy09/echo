@@ -1,1 +1,0 @@
-export { getReceipts } from "./store";
