@@ -66,3 +66,9 @@ Schedule `POST /api/grade` hourly (e.g. cron-job.org) to grade without anyone vi
 2. Open `/api/ryo/tools?key=<ECHO_INGEST_KEY>` to see the real tool names and input schemas.
 3. Set `RYO_TOOL`, `RYO_ARGS` and `RYO_FIELD_MAP` to match (see `.env.example`), then check `/api/live/SOL`.
 Live evidence paths read `ryo://<tool>/<TOKEN>#<field>`. If the server is down, rate-limited or returns a field as non-numeric, that value is null and the engine refuses to size: no guessing. Until configured, receipts are labelled "Mock market values".
+
+### RYO-CHAN setup order
+1. `RYO_MCP_URL=https://app-ryochan.com/api/mcp`, `RYO_MCP_KEY=<key from the organizers>`. If auth fails, try `RYO_AUTH_HEADER=x-api-key` or `RYO_AUTH_SCHEME=` (empty).
+2. `/api/ryo/tools?key=<ECHO_INGEST_KEY>` lists tools and input schemas.
+3. `/api/ryo/probe?key=<ECHO_INGEST_KEY>&tool=analyze_token&args=%7B...%7D` returns one raw result; read the field paths from it.
+4. Set `RYO_TOOL`, `RYO_ARGS` and `RYO_FIELD_MAP`. Only mapped fields are checked and shown on a receipt; unmapped ones are left out. RYO allows about 6 analysis calls a minute per key, and Echo waits out `Retry-After` on a 429.

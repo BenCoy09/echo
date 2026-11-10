@@ -14,13 +14,15 @@ const asJson = (t?: string) => { try { return t ? JSON.parse(t) : undefined; } c
  */
 export async function fetchMarket(token: string): Promise<MarketPoint[]> {
   const url = process.env.RYO_MCP_URL, at = new Date().toISOString(), tool = process.env.RYO_TOOL ?? "market_snapshot";
+  const map = asJson(process.env.RYO_FIELD_MAP) ?? {};
+  // Live: only the fields you mapped are checked and shown. A field RYO does not provide is left out, never faked.
+  const keys = url && Object.keys(map).length ? FIELDS.filter((k) => k in map) : FIELDS;
   const build = (get: (k: (typeof FIELDS)[number]) => unknown): MarketPoint[] =>
-    FIELDS.map((key) => ({ key, path: url ? `ryo://${tool}/${token}#${key}` : MOCK_PATH[key](token), fetchedAt: at, value: typeof get(key) === "number" ? (get(key) as number) : null }));
+    keys.map((key) => ({ key, path: url ? `ryo://${tool}/${token}#${key}` : MOCK_PATH[key](token), fetchedAt: at, value: typeof get(key) === "number" ? (get(key) as number) : null }));
 
   if (!url) { const m = { volumeChange24h: 38, fundingPct: 0.008, liquidityUsd: 1900000 }; return build((k) => m[k]); }
 
   const args = JSON.parse((process.env.RYO_ARGS ?? '{"token":"{token}"}').replace(/\{token\}/g, token));
-  const map = asJson(process.env.RYO_FIELD_MAP) ?? {};
   for (let i = 0; i < 3; i++) {
     try {
       const r = (await mcp("tools/call", { name: tool, arguments: args })) as { isError?: boolean; structuredContent?: unknown; content?: { type: string; text?: string }[] };
@@ -28,7 +30,7 @@ export async function fetchMarket(token: string): Promise<MarketPoint[]> {
       const data = r?.structuredContent ?? asJson(r?.content?.find((c) => c.type === "text")?.text);
       return build((k) => dig(data, map[k] ?? k));
     } catch (e) {
-      if (e instanceof RateLimited) { await sleep(2 ** i * 500); continue; }
+      if (e instanceof RateLimited) { await sleep(Math.min(e.retryAfter, 20) * 1000); continue; }
       break;
     }
   }
