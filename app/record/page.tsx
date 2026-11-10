@@ -56,6 +56,7 @@ export default async function Record() {
     <SiteHeader />
     <main className="mx-auto max-w-page px-5 py-7">
       <p className="label">Track record · prices: {job.source}</p>
+      {job.errors.length > 0 && <p className="mt-2 text-xs text-rust">Price lookup failed for {job.errors.length} receipt(s): {job.errors[0]}</p>}
 
       <section aria-labelledby="live">
         <h1 id="live" className="mt-3 font-display text-4xl">{L.n ? `Live: ${L.correct} of ${L.n} sized calls were right.` : "Live: no calls graded yet."}</h1>

@@ -54,7 +54,24 @@ export const mockSource: PriceSource = {
   },
 };
 
-export function getSource(): PriceSource {
-  if (process.env.PRICE_SOURCE === "mock") return mockSource;
-  return cached(process.env.PRICE_API_URL ? http(process.env.PRICE_API_URL) : binance);
+/** Fallback: Coinbase Exchange public candles (USD quote, no key). Price = open of the 1-minute candle at the timestamp. */
+const coinbase: PriceSource = {
+  name: "coinbase-spot-1m",
+  async priceAt(token, iso) {
+    const t = Date.parse(iso), floor = Math.floor(t / 60000) * 60;
+    const url = `https://api.exchange.coinbase.com/products/${token}-USD/candles?granularity=60&start=${new Date(floor * 1000).toISOString()}&end=${new Date((floor + 60) * 1000).toISOString()}`;
+    const res = await fetch(url, { headers: { "User-Agent": "echo-grader" }, cache: "no-store" });
+    const candles: number[][] = await res.json();
+    const c = Array.isArray(candles) ? candles.find((x) => x[0] === floor) ?? candles[candles.length - 1] : undefined;
+    if (!res.ok || !c || !Number.isFinite(c[3])) throw new Error(`no price for ${token}-USD at ${iso}`);
+    return c[3]; // [time, low, high, open, close, volume]
+  },
+};
+
+/** Ordered sources. The grader tries them in turn per receipt (both prices from the same source) and records which one was used. */
+export function getSources(): PriceSource[] {
+  if (process.env.PRICE_SOURCE === "mock") return [mockSource];
+  if (process.env.PRICE_API_URL) return [cached(http(process.env.PRICE_API_URL))];
+  return [cached(binance), cached(coinbase)];
 }
+export const getSource = (): PriceSource => getSources()[0];
