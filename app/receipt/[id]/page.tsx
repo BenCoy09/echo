@@ -57,6 +57,7 @@ export default function ReceiptPage({ params }: { params: { id: string } }) {
       <h2 className="mt-8 font-display text-2xl">Verify</h2>
       <p className="mb-4 mt-2 max-w-xl text-sm text-bone-dim">Re-runs the {r.engineVersion} engine on the stored evidence and compares the output and hash with the sealed receipt.</p>
       <VerifyButton id={r.id} />
+      <p className="mt-4 text-xs text-bone-mute"><a href={`/api/receipt/${r.id}`} className="hover:text-brass">Open receipt JSON</a> · <a href={`/verify?id=${r.id}`} className="hover:text-brass">Verify in your own browser</a></p>
       {r.origin === "ingest" && !r.voided && <VoidButton id={r.id} />}
       <details className="mt-8 border border-ink-line">
         <summary className="label cursor-pointer px-4 py-3">Raw receipt JSON</summary>
