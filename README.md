@@ -59,3 +59,10 @@ Sample receipts now use real tickers (SOL, ETH, LINK, AVAX, ARB) with **syntheti
 ## Persistence on free hosts (Upstash)
 Create a free Redis database at upstash.com, then set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` on the host. On boot (`instrumentation.ts`) receipts are restored from Redis, or Redis is seeded from the committed `data/receipts.json`. Every save (new receipt, new grade) is mirrored back. Once Redis holds data, it is the source of truth; pushing a new `data/receipts.json` will not overwrite it.
 Schedule `POST /api/grade` hourly (e.g. cron-job.org) to grade without anyone visiting /record.
+
+## RYO-CHAN (MCP)
+`lib/mcp.ts` speaks MCP over Streamable HTTP (initialize handshake, session id, JSON or SSE replies). `lib/ryo.ts` calls one tool per receipt and maps its result to three fields: 24h volume change (%), funding (%), 1% liquidity depth (USD).
+1. Set `RYO_MCP_URL` and `RYO_MCP_KEY`.
+2. Open `/api/ryo/tools?key=<ECHO_INGEST_KEY>` to see the real tool names and input schemas.
+3. Set `RYO_TOOL`, `RYO_ARGS` and `RYO_FIELD_MAP` to match (see `.env.example`), then check `/api/live/SOL`.
+Live evidence paths read `ryo://<tool>/<TOKEN>#<field>`. If the server is down, rate-limited or returns a field as non-numeric, that value is null and the engine refuses to size: no guessing. Until configured, receipts are labelled "Mock market values".
